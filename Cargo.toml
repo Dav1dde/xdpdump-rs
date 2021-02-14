@@ -1,0 +1,17 @@
+[package]
+name = "xdpdump"
+version = "0.1.0"
+authors = ["David Herberth <github@dav1d.de>"]
+edition = "2018"
+build = "build.rs"
+
+[dependencies]
+libbpf-sys = "0.3.0-1"
+libc = "0.2"
+clap = "2.33"
+anyhow = "1.0"
+perf-event-open-sys = "1.0"
+chrono = "0.4"
+ctrlc = { version = "3", features = ["termination"] }
+pretty-hex = "0.2"
+
