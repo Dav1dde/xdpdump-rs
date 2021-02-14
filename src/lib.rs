@@ -1,9 +1,6 @@
 use std::ffi::CString;
 use std::path::PathBuf;
 
-use libbpf_sys;
-use libc;
-
 pub fn if_nametoindex(ifname: &str) -> u32 {
     if let Ok(ifname) = CString::new(ifname) {
         unsafe { libc::if_nametoindex(ifname.as_ptr()) }

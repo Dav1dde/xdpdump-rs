@@ -191,11 +191,13 @@ fn main() {
         .fd()
         .unwrap();
 
-    let mut perf_attr = perf_sys::perf_event_attr::default();
-    perf_attr.sample_type = perf_sys::perf_event_sample_format_PERF_SAMPLE_RAW
-        | perf_sys::perf_event_sample_format_PERF_SAMPLE_TIME;
-    perf_attr.type_ = perf_sys::perf_type_id_PERF_TYPE_SOFTWARE;
-    perf_attr.config = perf_sys::perf_sw_ids_PERF_COUNT_SW_BPF_OUTPUT as u64;
+    let mut perf_attr = perf_sys::perf_event_attr {
+        sample_type: perf_sys::perf_event_sample_format_PERF_SAMPLE_RAW
+            | perf_sys::perf_event_sample_format_PERF_SAMPLE_TIME,
+        type_: perf_sys::perf_type_id_PERF_TYPE_SOFTWARE,
+        config: perf_sys::perf_sw_ids_PERF_COUNT_SW_BPF_OUTPUT as u64,
+        ..perf_sys::perf_event_attr::default()
+    };
     perf_attr.__bindgen_anon_2.wakeup_events = 1;
 
     let n_cpus = unsafe { libc::sysconf(libc::_SC_NPROCESSORS_ONLN) };
